@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "catgui-api",
+	"version": "${version}",
+	"name": "CatGuiAPI",
+	"description": "An API for creating and managing custom GUI screens in Minecraft mods.",
+	"authors": [
+		"Myowiri"
+	],
+	"contact": {
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"icon": "assets/guiapi/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "meow.cats.CatGuiAPI"
+		]
+	},
+	"mixins": [
+		"guiapi.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.0",
+		"minecraft": "~26.3",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
