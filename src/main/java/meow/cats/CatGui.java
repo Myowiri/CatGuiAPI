@@ -12,18 +12,37 @@ import net.minecraft.network.chat.Component;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CatGui extends Screen {
 
-    public final List<Item> buttons = new ArrayList<>();
+    public final List<Item> buttons = new CopyOnWriteArrayList<>();
     public int Width = 160;
     public int Height = 20;
     public int ScrollY = 0;
     public int maxY;
 
+    public Color mainColor = new Color(0x99000000, true);
+    public Color secondColor = new Color(0x99878EE6, true);
+    public Color thirdColor = new Color(0x66B4BBFF, true);
+
+    public void refreshButtons() {
+        buttons.clear();
+        addButtons();
+    }
+
+
     public CatGui() {
         super(Component.literal("CatGui"));
-        addButtons();
+    }
+
+
+    @Override
+    protected void init() {
+        super.init();
+        if (buttons.isEmpty()) {
+            addButtons();
+        }
     }
 
     public void addButtons(){
@@ -33,12 +52,12 @@ public class CatGui extends Screen {
     @Override
     public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         for (Item button : buttons) {
-            button.mouseClicked((int)click.x(), (int)click.y());
+            if (button.mouseClicked((int) click.x(), (int) click.y())) {
+                return true;
+            }
         }
-
         return super.mouseClicked(click, doubled);
     }
-
     @Override
     public boolean mouseDragged(MouseButtonEvent click, double deltaX, double deltaY) {
 
@@ -71,6 +90,18 @@ public class CatGui extends Screen {
 
     public int getMaxY() {
         return maxY;
+    }
+
+    public Color getMainColor(){
+        return mainColor;
+    }
+
+    public Color getSecondColor(){
+        return secondColor;
+    }
+
+    public Color getThirdColor(){
+        return thirdColor;
     }
 
     public int getSpacing(){
