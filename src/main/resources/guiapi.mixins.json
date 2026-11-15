@@ -3,7 +3,6 @@
 	"package": "meow.cats.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"MixinAccessibilityOptionsScreen"
 	],
 	"injectors": {
 		"defaultRequire": 1
