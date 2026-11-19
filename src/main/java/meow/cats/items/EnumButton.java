@@ -2,13 +2,13 @@ package meow.cats.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
 
 public class EnumButton<T extends Enum<T>> extends Item {
     private T state;
     private final T[] values;
-    private final String name;
     private final Consumer<T> onChange;
     public int rx;
     public int ry;
@@ -17,7 +17,14 @@ public class EnumButton<T extends Enum<T>> extends Item {
         super(name);
         this.state = state;
         this.values = state.getDeclaringClass().getEnumConstants();
-        this.name = name;
+        this.onChange = onChange;
+    }
+
+
+    public EnumButton(T state, Component name, Consumer<T> onChange) {
+        super(name);
+        this.state = state;
+        this.values = state.getDeclaringClass().getEnumConstants();
         this.onChange = onChange;
     }
 
@@ -34,13 +41,16 @@ public class EnumButton<T extends Enum<T>> extends Item {
                 this.getSecondColor().getRGB()
         );
 
+        Component displayText = this.name.copy().append(": " + state.name());
+
         context.text(
                 Minecraft.getInstance().font,
-                name + ": " + state.name(),
+                displayText,
                 rx + 10,
                 ry + (height - 9) / 2,
                 -1
         );
+
     }
 
     @Override

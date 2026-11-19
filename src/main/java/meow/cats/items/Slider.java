@@ -1,6 +1,5 @@
 package meow.cats.items;
 
-import meow.cats.CatGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 
@@ -74,7 +73,6 @@ public class Slider extends Item {
                 || mouseY < ry || mouseY >= ry + height) {
             return false;
         }
-
         dragging = true;
         setFromMouse(mouseX);
         return true;

@@ -2,22 +2,33 @@ package meow.cats.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
 
 public class Button extends Item {
-    private String name;
+    private Component name;
     private final Consumer<Button> onPress;
     public int rx;
     public int ry;
 
     public Button(String name, Consumer<Button> onPress) {
         super(name);
+        this.name = Component.literal(name);
+        this.onPress = onPress;
+    }
+
+    public Button(Component name, Consumer<Button> onPress) {
+        super(name);
         this.name = name;
         this.onPress = onPress;
     }
 
     public void setName(String name) {
+        this.name = Component.literal(name);
+    }
+
+    public void setName(Component name) {
         this.name = name;
     }
 
