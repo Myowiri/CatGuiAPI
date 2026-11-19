@@ -3,6 +3,7 @@ package meow.cats.items;
 import meow.cats.CatGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
 import java.awt.Color;
@@ -13,7 +14,7 @@ import static meow.cats.Utils.RenderUtils.*;
 public class ColorPicker extends Item {
     private static final int PICKER_SIZE = 84;
     private static Color clipboard;
-    private final String name;
+    private final Component name;
     private final Consumer<Color> onChange;
     private Color color;
     private float[] hsb;
@@ -24,6 +25,13 @@ public class ColorPicker extends Item {
 
 
     public ColorPicker(Color color, String name, Consumer<Color> onChange) {
+        super(name);
+        this.color = color;
+        this.name = Component.literal(name);
+        this.onChange = onChange;
+        updateHsb();
+    }
+    public ColorPicker(Color color, Component name, Consumer<Color> onChange) {
         super(name);
         this.color = color;
         this.name = name;
@@ -85,8 +93,8 @@ public class ColorPicker extends Item {
         int half = size / 2;
         context.fill(pickerX, buttonsY, pickerX + half - 1, buttonsY + 14, this.getSecondColor().getRGB());
         context.fill(pickerX + half + 1, buttonsY, pickerX + size, buttonsY + 14, this.getSecondColor().getRGB());
-        context.centeredText(Minecraft.getInstance().font, "Copy", pickerX + half/2, buttonsY + 3, -1);
-        context.centeredText(Minecraft.getInstance().font, "Paste", pickerX + (int)(half * 1.5), buttonsY + 3, -1);
+        context.centeredText(Minecraft.getInstance().font, Component.translatable("catguiapi.item.copy"), pickerX + half/2, buttonsY + 3, -1);
+        context.centeredText(Minecraft.getInstance().font, Component.translatable("catguiapi.item.paste"), pickerX + (int)(half * 1.5), buttonsY + 3, -1);
     }
 
     @Override

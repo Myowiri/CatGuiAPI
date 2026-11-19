@@ -2,13 +2,20 @@ package meow.cats.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 
 public class CentedText extends Item{
 
     public int rx;
     public int ry;
+    public Component text;
 
     public CentedText(String name) {
+        super(name);
+        this.text =  Component.literal(name);
+    }
+
+    public CentedText(Component name) {
         super(name);
     }
 
@@ -25,7 +32,7 @@ public class CentedText extends Item{
 
         context.centeredText(
                 Minecraft.getInstance().font,
-                name,
+                text,
                 rx + width/2,
                 ry + (height - 9) / 2,
                 -1

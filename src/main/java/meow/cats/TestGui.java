@@ -2,6 +2,7 @@
 //
 //import meow.cats.items.*;
 //import meow.cats.items.Button;
+//import net.minecraft.network.chat.Component;
 //
 //import java.awt.*;
 //
@@ -37,7 +38,7 @@
 //        buttons.add(new CentedText("Text").setWidth(200).setDx(-20));
 //        buttons.add(new BooleanButton(true, "Test", v -> System.out.println(1)));
 //
-//        buttons.add(new Button("Mode", v -> {
+//        buttons.add(new Button(Component.translatable("test.text"), v -> {
 //            int nextIndex = (a.ordinal() + 1) % test2.values().length;
 //            a = test2.values()[nextIndex];
 //

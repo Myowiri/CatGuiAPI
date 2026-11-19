@@ -15,11 +15,16 @@ public class Text extends Item {
         super(name);
     }
 
+    public Text(Component name) {
+        super(name);
+    }
+
+
     @Override
     public void render(GuiGraphicsExtractor context, int x, int y) {
         int width = this.getWidth();
 
-        textHeight = Minecraft.getInstance().font.split(Component.literal(this.name), width).size() * Minecraft.getInstance().font.lineHeight;
+        textHeight = Minecraft.getInstance().font.split(Component.literal(this.name.getString()), width).size() * Minecraft.getInstance().font.lineHeight;
 
         rx = (this.x != null ? this.x : x) + dx;
         ry = (this.y != null ? this.y : y) + dy;
@@ -27,7 +32,7 @@ public class Text extends Item {
         context.fill(rx, ry, rx + width, ry + getHeight(), this.getMainColor().getRGB());
 
         Font font = Minecraft.getInstance().font;
-        Component textComponent = Component.literal(this.name);
+        Component textComponent = Component.literal(this.name.getString());
 
 
         int textY = ry + 10 ;

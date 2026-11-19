@@ -2,22 +2,31 @@ package meow.cats.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
 
 public class BooleanButton extends Item {
     private boolean state;
-    private final String name;
+    private final Component name;
     private final Consumer<Boolean> onChange;
     public int rx;
     public int ry;
 
-    public BooleanButton(boolean state, String name, Consumer<Boolean> onChange) {
+    public BooleanButton(boolean state, Component name, Consumer<Boolean> onChange) {
         super(name);
         this.state = state;
         this.name = name;
         this.onChange = onChange;
     }
+
+    public BooleanButton(boolean state, String name, Consumer<Boolean> onChange) {
+        super(name);
+        this.state = state;
+        this.name = Component.literal(name);
+        this.onChange = onChange;
+    }
+
 
     @Override
     public void render(GuiGraphicsExtractor context, int x, int y) {
@@ -33,13 +42,16 @@ public class BooleanButton extends Item {
                 state ? this.getSecondColor().getRGB() : this.getMainColor().getRGB()
         );
 
+        Component displayText = this.name.copy().append(": " + (state ? "On" : "Off"));
+
         context.text(
                 Minecraft.getInstance().font,
-                name + ": " + (state ? "On" : "Off"),
+                displayText,
                 rx + 10,
                 ry + (height - 9) / 2,
                 -1
         );
+
 
     }
 

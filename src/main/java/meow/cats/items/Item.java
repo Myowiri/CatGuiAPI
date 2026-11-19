@@ -3,15 +3,17 @@ package meow.cats.items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 
 import java.awt.*;
+
 
 public abstract class Item {
 
     public Integer x = null;
     public Integer y = null;
-    public String name;
+    public Component name;
     public int Width = 160;
     public int Height = 20;
     public int dx = 0;
@@ -31,6 +33,10 @@ public abstract class Item {
     }
 
     public Item(String name){
+        this.name = Component.literal(name);
+    }
+
+    public Item(Component name){
         this.name = name;
     }
 
