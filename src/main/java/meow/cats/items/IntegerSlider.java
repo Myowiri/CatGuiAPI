@@ -3,12 +3,12 @@ package meow.cats.items;
 import meow.cats.CatGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
 
 import java.util.Locale;
 import java.util.function.Consumer;
 
 public class IntegerSlider extends Item {
-    private final String name;
     private final int min;
     private final int max;
     private final Consumer<Integer> onChange;
@@ -18,10 +18,15 @@ public class IntegerSlider extends Item {
     private int ry;
 
 
-    public IntegerSlider(String name, int value, int min, int max,
-                         Consumer<Integer> onChange) {
+    public IntegerSlider(String name, int value, int min, int max, Consumer<Integer> onChange) {
         super(name);
-        this.name = name;
+        this.min = min;
+        this.max = max;
+        this.value = clamp(value);
+        this.onChange = onChange;
+    }
+    public IntegerSlider(Component name, int value, int min, int max, Consumer<Integer> onChange) {
+        super(name);
         this.min = min;
         this.max = max;
         this.value = clamp(value);
@@ -37,7 +42,10 @@ public class IntegerSlider extends Item {
 
         context.fill(rx, ry, rx + width, ry + height, this.getMainColor().getRGB());
 
-        String label = name.contains("%") ? String.format(Locale.ROOT, name, value) : name + ": " + value;
+        String rawName = this.name.getString();
+        String label = rawName.contains("%")
+                ? String.format(Locale.ROOT, rawName, value)
+                : rawName + ": " + value;
 
         context.text(
                 Minecraft.getInstance().font,
